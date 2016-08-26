@@ -37,7 +37,7 @@ public class NeuralNetwork {
             if (i == 0) {
                 lastLayerResult = processInputLayer();
             } else {
-                lastLayerResult = processLayer(layers.get(i), lastLayerResult);
+                lastLayerResult = processLayer(i, layers.get(i), lastLayerResult);
             }
         }
         return lastLayerResult;
@@ -61,12 +61,34 @@ public class NeuralNetwork {
     /**
      * Process a layer
      * 
+     * @param layerIndex
      * @param layer
      * @param lastLayerResult
      * @return double[]
      */
-    private double[] processLayer(Layer layer, double[] lastLayerResult) {
-        return new double[] {0,0,0,0};
+    private double[] processLayer(int layerIndex, Layer<Neuron> layer, double[] lastLayerResult) {
+        double[] result = new double[layer.getNeurons().size()];
+        for (int i = 0; i < layer.getNeurons().size(); i++) {
+            Neuron neuron = layer.getNeurons().get(i);
+            result[i] = neuron.process(applyWeights(lastLayerResult, layerIndex, i));
+        }
+        return result;
+    }
+    
+    /**
+     * Apply the weights
+     * 
+     * @param input
+     * @param layerIndex
+     * @param neuronIndex
+     * @return double[]
+     */
+    private double[] applyWeights(double[] input, int layerIndex, int neuronIndex) {
+        double[] ret = new double[input.length];
+        for (int i = 0; i < input.length; i++) {
+            ret[i] = input[i] * getConnectionWeight(layerIndex-1, i, layerIndex, neuronIndex);
+        }
+        return ret;
     }
     
     /**
@@ -104,6 +126,15 @@ public class NeuralNetwork {
     public Layer<Neuron> getOutputLayer() {
         return layers.get(0);
     }
+
+    /**
+     * Returns the layers
+     * 
+     * @return {@List<Layer>}
+     */
+    public List<Layer> getLayers() {
+        return new ArrayList<>(layers);
+    }
     
     /**
      * Returns the weight of a connection
@@ -120,6 +151,19 @@ public class NeuralNetwork {
             return 0.5;
         }
         return weights.get(key);
+    }
+    
+    /**
+     * Puts a weight
+     * 
+     * @param layerIndex1
+     * @param neuronIndex1
+     * @param layerIndex2
+     * @param neuronIndex2
+     * @param weight 
+     */
+    public void putConnectionWeight(int layerIndex1, int neuronIndex1, int layerIndex2, int neuronIndex2, double weight) {
+        weights.put(new ConnectionKey(layerIndex1, neuronIndex1, layerIndex2, neuronIndex2), weight);
     }
 
 }
