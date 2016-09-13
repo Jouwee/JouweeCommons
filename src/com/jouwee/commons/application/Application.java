@@ -3,7 +3,7 @@ package com.jouwee.commons.application;
 import com.jouwee.commons.mvc.Model;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -16,28 +16,35 @@ import javafx.stage.Stage;
  */
 public class Application<T extends Model> extends javafx.application.Application {
 
+    /** Action repository */
+    private final ActionRepository actionRepository;
     /** Model */
     private T model;
     /** Body */
     private JavaFXView body;
     /** Main panel */
     private BorderPane mainPanel;
+    /** Menu bar */
+    private MenuBar menuBar;
 
     /**
      * Creates a new application
+     * @param model
      */
     public Application(T model) {
         super();
         this.model = model;
-//        body = new ...;
+        this.actionRepository = new ActionRepository();
+        new ApplicationMenuBuilder(this);
     }
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Hello World!");
-        StackPane root = new StackPane();
-        root.getChildren().add(getMainPanel());
+        BorderPane root = new BorderPane();
+        root.setCenter(getMainPanel());
         primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
@@ -49,8 +56,19 @@ public class Application<T extends Model> extends javafx.application.Application
     public BorderPane getMainPanel() {
         if (mainPanel == null) {
             mainPanel = new BorderPane();
+            mainPanel.setTop(buildMenuBar());
         }
         return mainPanel;
+    }
+
+    /**
+     * Builds a menu bar
+     * 
+     * @return Node
+     */
+    private Node buildMenuBar() {
+        menuBar = new MenuBar();
+        return menuBar;
     }
 
     /**
@@ -88,6 +106,24 @@ public class Application<T extends Model> extends javafx.application.Application
      */
     public void setModel(T model) {
         this.model = model;
+    }
+
+    /**
+     * Returns the application ActionRepository
+     * 
+     * @return ActionRepository
+     */
+    public ActionRepository getActionRepository() {
+        return actionRepository;
+    }
+
+    /**
+     * Returns the menu bar
+     * 
+     * @return MenuBar
+     */
+    public MenuBar getMenuBar() {
+        return menuBar;
     }
 
 }
