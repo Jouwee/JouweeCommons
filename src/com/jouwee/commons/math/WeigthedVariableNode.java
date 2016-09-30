@@ -40,5 +40,10 @@ public class WeigthedVariableNode extends ValueNode {
     public double getWeight() {
         return weight;
     }
+
+    @Override
+    public ExpressionNode deepClone() {
+        return new WeigthedVariableNode(variable, weight);
+    }
     
 }

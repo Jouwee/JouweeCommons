@@ -55,5 +55,15 @@ public class VariableNode extends ValueNode {
         }
         return true;
     }
-    
+
+    @Override
+    public String toComputerString() {
+        return variable;
+    }
+
+    @Override
+    public ExpressionNode deepClone() {
+        return new VariableNode(variable);
+    }
+
 }

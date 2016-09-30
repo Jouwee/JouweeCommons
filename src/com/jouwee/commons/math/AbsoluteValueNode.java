@@ -61,5 +61,10 @@ public class AbsoluteValueNode extends ValueNode {
             return String.valueOf((long)value);
         }
     }
+
+    @Override
+    public ExpressionNode deepClone() {
+        return new AbsoluteValueNode(value);
+    }
     
 }

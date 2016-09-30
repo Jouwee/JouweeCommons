@@ -1,6 +1,6 @@
 package com.jouwee.commons.chart;
 
-import com.jouwee.commons.math.FunctionSolver;
+import com.jouwee.commons.math.ExpressionSolver;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.chart.LineChart;
@@ -18,7 +18,7 @@ public class CartesianPlane extends BorderPane {
     /** Function rendering beans */
     private final List<FunctionRenderingBean> functionRenderingBeans;
     /** Function solver */
-    private FunctionSolver functionSolver;
+    private ExpressionSolver functionSolver;
     /** Line chart */
     private LineChart<Number, Number> lineChart;
 
@@ -28,7 +28,7 @@ public class CartesianPlane extends BorderPane {
     public CartesianPlane() {
         super();
         functionRenderingBeans = new ArrayList<>();
-        functionSolver = new FunctionSolver();
+        functionSolver = new ExpressionSolver();
         //defining the axes
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
@@ -92,7 +92,7 @@ public class CartesianPlane extends BorderPane {
      *
      * @return FunctionSolver
      */
-    public FunctionSolver getFunctionSolver() {
+    public ExpressionSolver getFunctionSolver() {
         return functionSolver;
     }
 
@@ -101,7 +101,7 @@ public class CartesianPlane extends BorderPane {
      *
      * @param functionSolver
      */
-    public void setFunctionSolver(FunctionSolver functionSolver) {
+    public void setFunctionSolver(ExpressionSolver functionSolver) {
         this.functionSolver = functionSolver;
     }
 

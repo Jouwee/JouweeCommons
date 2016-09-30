@@ -80,5 +80,10 @@ public class DifferenceNode extends ExpressionNode {
     public String toString() {
         return toComputerString();
     }
+
+    @Override
+    public ExpressionNode deepClone() {
+        return new DifferenceNode(leftOperant, rightOperant);
+    }
     
 }

@@ -76,5 +76,10 @@ public class SumNode extends ExpressionNode {
         }
         return true;
     }
+
+    @Override
+    public ExpressionNode deepClone() {
+        return new SumNode(leftOperant, rightOperant);
+    }
     
 }

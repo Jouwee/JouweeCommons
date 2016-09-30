@@ -1,16 +1,18 @@
 package com.jouwee.commons.math;
 
+import java.util.Objects;
+
 /**
  * Equation
  * 
  * @author Jouwee
  */
-public class Equation {
+public class Equation extends ExpressionNode {
     
     /** Left function */
-    private final Expression leftFunction;
+    private final ExpressionNode leftFunction;
     /** Right function */
-    private final Expression rightFunction;
+    private final ExpressionNode rightFunction;
     /** Equation type */
     private final EquationType type;
 
@@ -21,27 +23,27 @@ public class Equation {
      * @param rightFunction
      * @param type 
      */
-    public Equation(Expression leftFunction, Expression rightFunction, EquationType type) {
+    public Equation(ExpressionNode leftFunction, ExpressionNode rightFunction, EquationType type) {
         this.leftFunction = leftFunction;
         this.rightFunction = rightFunction;
         this.type = type;
     }
 
     /**
-     * Returns the left function
+     * Returns the left ExpressionNode
      * 
-     * @return Function
+     * @return ExpressionNode
      */
-    public Expression getLeftFunction() {
+    public ExpressionNode getLeftFunction() {
         return leftFunction;
     }
 
     /**
-     * Returns the right function
+     * Returns the right ExpressionNode
      * 
-     * @return Function
+     * @return ExpressionNode
      */
-    public Expression getRightFunction() {
+    public ExpressionNode getRightFunction() {
         return rightFunction;
     }
 
@@ -52,6 +54,54 @@ public class Equation {
      */
     public EquationType getType() {
         return type;
+    }
+    
+    @Override
+    public String toComputerString() {
+        return getLeftFunction().toComputerString() + "=" + getRightFunction().toComputerString();
+    }
+
+    @Override
+    public String toString() {
+        return toComputerString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.leftFunction);
+        hash = 61 * hash + Objects.hashCode(this.rightFunction);
+        hash = 61 * hash + Objects.hashCode(this.type);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Equation other = (Equation) obj;
+        if (!Objects.equals(this.leftFunction, other.leftFunction)) {
+            return false;
+        }
+        if (!Objects.equals(this.rightFunction, other.rightFunction)) {
+            return false;
+        }
+        if (this.type != other.type) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public ExpressionNode deepClone() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

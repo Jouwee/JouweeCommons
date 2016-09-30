@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Function solver
+ * Expression solver
  * 
- * @author Jouwee
+ * @author Nícolas Pohren
  */
-public class FunctionSolver {
+public class ExpressionSolver {
     
     /** Variables */
     private final Map<String, Double> variables;
@@ -18,7 +18,7 @@ public class FunctionSolver {
     /**
      * Creates a new function solver
      */
-    public FunctionSolver() {
+    public ExpressionSolver() {
         this.variables = new HashMap<>();
         this.nodeSolvers = new HashMap<>();
         initSolvers();
@@ -31,8 +31,8 @@ public class FunctionSolver {
         nodeSolvers.put(AbsoluteValueNode.class, (NodeSolver<AbsoluteValueNode>) (AbsoluteValueNode node) -> {
             return node.getValue();
         });
-        nodeSolvers.put(WeigthedVariableNode.class, (NodeSolver<WeigthedVariableNode>) (WeigthedVariableNode node) -> {
-            return node.getWeight() * getVariable(node.getVariable());
+        nodeSolvers.put(VariableNode.class, (NodeSolver<VariableNode>) (VariableNode node) -> {
+            return getVariable(node.getVariable());
         });
         nodeSolvers.put(SumNode.class, (NodeSolver<SumNode>) (SumNode node) -> {
             return solve(node.getLeftOperant()) + solve(node.getRightOperant());
@@ -56,7 +56,7 @@ public class FunctionSolver {
     }
     
     /**
-     * Returns the variable value
+     * Sets the variable value
      * 
      * @param variable
      * @param value
@@ -72,6 +72,9 @@ public class FunctionSolver {
      * @return double
      */
     public double solve(Expression function) {
+        if (function == null) {
+            return 0;
+        }
         return solve(function.getNode());
     }
         

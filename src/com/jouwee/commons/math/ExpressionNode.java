@@ -5,7 +5,7 @@ package com.jouwee.commons.math;
  * 
  * @author Jouwee
  */
-public class ExpressionNode {
+public abstract class ExpressionNode {
  
     /**
      * Writes this node as a computer String
@@ -13,7 +13,19 @@ public class ExpressionNode {
      * @return String
      */
     public String toComputerString() {
-        return this.toString();
+        return "<undefined>";
     }
+    
+    @Override
+    public String toString() {
+        return toComputerString();
+    }
+    
+    /**
+     * Clones this node
+     * 
+     * @return ExpressionNode
+     */
+    public abstract ExpressionNode deepClone();
     
 }

@@ -28,7 +28,7 @@ public class EquationParser {
             return null;
         }
         String[] parts = split(toParse);
-        return new Equation(expressionParser.parse(parts[0]), expressionParser.parse(parts[2]), getEquality(parts[1]));
+        return new Equation(expressionParser.parse(parts[0]).getNode(), expressionParser.parse(parts[2]).getNode(), getEquality(parts[1]));
     }
 
     /**

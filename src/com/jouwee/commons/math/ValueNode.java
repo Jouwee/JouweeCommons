@@ -5,6 +5,6 @@ package com.jouwee.commons.math;
  * 
  * @author Jouwee
  */
-public class ValueNode extends ExpressionNode {
+public abstract class ValueNode extends ExpressionNode {
     
 }
