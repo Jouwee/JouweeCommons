@@ -8,9 +8,9 @@ package com.jouwee.commons.math;
 public class Equation {
     
     /** Left function */
-    private final Function leftFunction;
+    private final Expression leftFunction;
     /** Right function */
-    private final Function rightFunction;
+    private final Expression rightFunction;
     /** Equation type */
     private final EquationType type;
 
@@ -21,7 +21,7 @@ public class Equation {
      * @param rightFunction
      * @param type 
      */
-    public Equation(Function leftFunction, Function rightFunction, EquationType type) {
+    public Equation(Expression leftFunction, Expression rightFunction, EquationType type) {
         this.leftFunction = leftFunction;
         this.rightFunction = rightFunction;
         this.type = type;
@@ -32,7 +32,7 @@ public class Equation {
      * 
      * @return Function
      */
-    public Function getLeftFunction() {
+    public Expression getLeftFunction() {
         return leftFunction;
     }
 
@@ -41,7 +41,7 @@ public class Equation {
      * 
      * @return Function
      */
-    public Function getRightFunction() {
+    public Expression getRightFunction() {
         return rightFunction;
     }
 

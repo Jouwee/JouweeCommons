@@ -71,7 +71,7 @@ public class FunctionSolver {
      * @param function
      * @return double
      */
-    public double solve(Function function) {
+    public double solve(Expression function) {
         return solve(function.getNode());
     }
         
@@ -81,7 +81,7 @@ public class FunctionSolver {
      * @param node
      * @return double
      */
-    public double solve(FunctionNode node) {
+    public double solve(ExpressionNode node) {
         return nodeSolvers.get(node.getClass()).solve(node);
     }
 
@@ -90,7 +90,7 @@ public class FunctionSolver {
      * 
      * @param T
      */
-    private interface NodeSolver<T extends FunctionNode> {
+    private interface NodeSolver<T extends ExpressionNode> {
         
         /**
          * Solves the node

@@ -1,16 +1,18 @@
 package com.jouwee.commons.math;
 
+import java.util.Objects;
+
 /**
  * Sum equation node
  * 
  * @author Jouwee
  */
-public class SumNode extends FunctionNode {
+public class SumNode extends ExpressionNode {
     
     /** Left operand */
     private final ValueNode leftOperant;
     /** Right operand */
-    private final FunctionNode rightOperant;
+    private final ExpressionNode rightOperant;
 
     /**
      * Creates a new Sum node
@@ -18,7 +20,7 @@ public class SumNode extends FunctionNode {
      * @param leftOperant
      * @param rightOperant 
      */
-    public SumNode(ValueNode leftOperant, FunctionNode rightOperant) {
+    public SumNode(ValueNode leftOperant, ExpressionNode rightOperant) {
         this.leftOperant = leftOperant;
         this.rightOperant = rightOperant;
     }
@@ -37,8 +39,42 @@ public class SumNode extends FunctionNode {
      * 
      * @return FunctionNode
      */
-    public FunctionNode getRightOperant() {
+    public ExpressionNode getRightOperant() {
         return rightOperant;
+    }
+
+    @Override
+    public String toComputerString() {
+        return getLeftOperant().toComputerString() + " + " + getRightOperant().toComputerString();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.leftOperant);
+        hash = 71 * hash + Objects.hashCode(this.rightOperant);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SumNode other = (SumNode) obj;
+        if (!Objects.equals(this.leftOperant, other.leftOperant)) {
+            return false;
+        }
+        if (!Objects.equals(this.rightOperant, other.rightOperant)) {
+            return false;
+        }
+        return true;
     }
     
 }

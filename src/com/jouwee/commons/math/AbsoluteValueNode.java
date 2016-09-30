@@ -27,5 +27,39 @@ public class AbsoluteValueNode extends ValueNode {
     public double getValue() {
         return value;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 13 * hash + (int) (Double.doubleToLongBits(this.value) ^ (Double.doubleToLongBits(this.value) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbsoluteValueNode other = (AbsoluteValueNode) obj;
+        if (Double.doubleToLongBits(this.value) != Double.doubleToLongBits(other.value)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toComputerString() {
+        if ((value == Math.floor(value)) && !Double.isInfinite(value)) {
+            return String.valueOf((long)value);
+        } else {
+            return String.valueOf((long)value);
+        }
+    }
     
 }
