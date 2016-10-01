@@ -77,4 +77,15 @@ public class ExpressionParserTest {
         assertEquals(expected, parser.parse("1 - 1"));
     }
     
+    /**
+     * Test simple Difference
+     */
+    @Test
+    public void testMultiplication() {
+        Expression expected;
+        //
+        expected = new Expression(new MultiplicationNode(new AbsoluteValueNode(1), new AbsoluteValueNode(1)));
+        assertEquals(expected, parser.parse("1 * 1"));
+    }
+    
 }

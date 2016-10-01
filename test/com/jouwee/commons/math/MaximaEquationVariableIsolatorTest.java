@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
  *
  * @author Nicolas
  */
-public class EquationVariableIsolatorTest {
+public class MaximaEquationVariableIsolatorTest {
     
     /** Equation variable isolator */
     private EquationVariableIsolator isolator;
@@ -17,7 +17,7 @@ public class EquationVariableIsolatorTest {
     
     @Before
     public void setUp() {
-        isolator = new EquationVariableIsolator();
+        isolator = new MaximaEquationVariableIsolator();
         parser = new EquationParser();
     }
 
@@ -29,7 +29,7 @@ public class EquationVariableIsolatorTest {
     @Test
     public void testAlreadyIsolatedEquations() {
         assertEquals(parser.parse("x=1"), isolator.isolate(parser.parse("x=1"), "x"));
-        assertEquals(parser.parse("x=a+b+c+1"), isolator.isolate(parser.parse("x=a+b+c+1"), "x"));
+        assertEquals(parser.parse("x=a + 1"), isolator.isolate(parser.parse("x=a + 1"), "x"));
     }
     
     @Test

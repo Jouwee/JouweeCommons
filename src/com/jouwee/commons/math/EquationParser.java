@@ -38,7 +38,16 @@ public class EquationParser {
      * @return String[]
      */
     private String[] split(String toParse) {
-        return new String[] {toParse.split("=")[0], "=", toParse.split("=")[1]};
+        if (toParse.contains("<=")) {
+            String normalized = toParse.replace(" <= ", "<=");
+            return new String[] {normalized.split("<=")[0], "<=", normalized.split("<=")[1]};
+        } else if (toParse.contains(">=")) {
+            String normalized = toParse.replace(" >= ", ">=");
+            return new String[] {normalized.split(">=")[0], ">=", normalized.split(">=")[1]};
+        } else {
+            String normalized = toParse.replace(" = ", "=");
+            return new String[] {normalized.split("=")[0], "=", normalized.split("=")[1]};
+        }
     }
     
     /**
@@ -48,7 +57,14 @@ public class EquationParser {
      * @return EquationType
      */
     private EquationType getEquality(String equality) {
-        return EquationType.EQUALS_TO;
+        switch (equality) {
+            case "=":
+                return EquationType.EQUALS_TO;
+            case ">=":
+                return EquationType.GREATER_THAN_OR_EQUALS_TO;
+            default:
+                return EquationType.LESSER_THAN_OR_EQUALS_TO;
+        }
     }
 
 }

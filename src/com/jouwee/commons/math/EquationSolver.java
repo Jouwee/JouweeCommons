@@ -18,7 +18,7 @@ public class EquationSolver {
      */
     public EquationSolver() {
         this.expressionSolver = new ExpressionSolver();
-        this.isolator = new EquationVariableIsolator();
+        this.isolator = EquationVariableIsolatorFactory.create();
     }
     
     /**

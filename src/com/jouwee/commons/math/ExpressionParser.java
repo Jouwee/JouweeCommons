@@ -80,8 +80,10 @@ public class ExpressionParser {
     private ExpressionNode parseOperation(String[] tokens, int i, ValueNode leftNode, ValueNode rightNode) {
         if (tokens[i].equals("+")) {
             return new SumNode(leftNode, rightNode);
-        } else {
+        } else if (tokens[i].equals("-")) {
             return new DifferenceNode(leftNode, rightNode);
+        } else {
+            return new MultiplicationNode(leftNode, rightNode);
         }
     }
 

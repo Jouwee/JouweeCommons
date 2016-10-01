@@ -43,4 +43,42 @@ public class EquationParserTest {
         assertEquals(EquationType.EQUALS_TO, equation.getType());
     }
     
+    /**
+     * Test the parsing of equations ignoring whitespaces
+     */
+    @Test
+    public void testWhitespaces() {
+        Equation equation;
+        //
+        equation = parser.parse("x=1 + 1");
+        assertEquals("x", equation.getLeftFunction().toComputerString());
+        assertEquals("1 + 1", equation.getRightFunction().toComputerString());
+        assertEquals(EquationType.EQUALS_TO, equation.getType());
+        //
+        equation = parser.parse("x = a + 1");
+        assertEquals("x", equation.getLeftFunction().toComputerString());
+        assertEquals("a + 1", equation.getRightFunction().toComputerString());
+        assertEquals(EquationType.EQUALS_TO, equation.getType());
+    }
+    
+    /**
+     * Test the parsing of inequalities
+     */
+    @Test
+    public void testInequalities() {
+        Equation equation;
+        //
+        equation = parser.parse("x>=1");
+        assertEquals("x", equation.getLeftFunction().toComputerString());
+        assertEquals("1", equation.getRightFunction().toComputerString());
+        assertEquals(EquationType.GREATER_THAN_OR_EQUALS_TO, equation.getType());
+        //
+        equation = parser.parse("x<=1");
+        assertEquals("x", equation.getLeftFunction().toComputerString());
+        assertEquals("1", equation.getRightFunction().toComputerString());
+        assertEquals(EquationType.LESSER_THAN_OR_EQUALS_TO, equation.getType());
+    }
+    
+
+    
 }

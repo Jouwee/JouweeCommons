@@ -1,6 +1,6 @@
 package com.jouwee.commons.chart;
 
-import com.jouwee.commons.math.Expression;
+import com.jouwee.commons.math.ExpressionNode;
 
 /**
  * Function Rendering Bean
@@ -10,15 +10,15 @@ import com.jouwee.commons.math.Expression;
 public class FunctionRenderingBean {
     
     /** Function */
-    private final Expression function;
+    private final ExpressionNode expression;
 
     /**
      * Creates a new function rendering bean
      * 
      * @param function 
      */
-    public FunctionRenderingBean(Expression function) {
-        this.function = function;
+    public FunctionRenderingBean(ExpressionNode function) {
+        this.expression = function;
     }
 
     /**
@@ -26,8 +26,8 @@ public class FunctionRenderingBean {
      * 
      * @return Function
      */
-    public Expression getFunction() {
-        return function;
+    public ExpressionNode getFunction() {
+        return expression;
     }
     
 }
