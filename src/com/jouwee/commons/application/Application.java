@@ -5,12 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
  * Application
- * 
+ *
  * @author Nícolas Pohren
  * @param <T> Model type of the application
  */
@@ -29,6 +28,7 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Creates a new application
+     *
      * @param model
      */
     public Application(T model) {
@@ -37,20 +37,34 @@ public class Application<T extends Model> extends javafx.application.Application
         this.actionRepository = new ActionRepository();
         new ApplicationMenuBuilder(this);
     }
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Hello World!");
         BorderPane root = new BorderPane();
         root.setCenter(getMainPanel());
-        primaryStage.setScene(new Scene(root, 300, 250));
+        primaryStage.setScene(buildScene(root));
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
     /**
+     * Builds the scene
+     *
+     * @param root
+     * @return Scene
+     */
+    private static Scene buildScene(BorderPane root) {
+        Scene scene = new Scene(root, 300, 250);
+        String css = Application.class.getResource("default.css").toExternalForm();
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(css);
+        return scene;
+    }
+
+    /**
      * Returns the main panel
-     * 
+     *
      * @return BorderPane
      */
     public BorderPane getMainPanel() {
@@ -63,7 +77,7 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Builds a menu bar
-     * 
+     *
      * @return Node
      */
     private Node buildMenuBar() {
@@ -73,7 +87,7 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Returns the body
-     * 
+     *
      * @return JavaFXView
      */
     public JavaFXView getBody() {
@@ -82,8 +96,8 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Sets the body
-     * 
-     * @param body 
+     *
+     * @param body
      */
     public void setBody(JavaFXView body) {
         this.body = body;
@@ -92,7 +106,7 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Returns the model
-     * 
+     *
      * @return T
      */
     public T getModel() {
@@ -101,8 +115,8 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Sets the model
-     * 
-     * @param model 
+     *
+     * @param model
      */
     public void setModel(T model) {
         this.model = model;
@@ -110,7 +124,7 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Returns the application ActionRepository
-     * 
+     *
      * @return ActionRepository
      */
     public ActionRepository getActionRepository() {
@@ -119,7 +133,7 @@ public class Application<T extends Model> extends javafx.application.Application
 
     /**
      * Returns the menu bar
-     * 
+     *
      * @return MenuBar
      */
     public MenuBar getMenuBar() {
