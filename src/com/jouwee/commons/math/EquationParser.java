@@ -22,8 +22,9 @@ public class EquationParser {
      * 
      * @param toParse
      * @return Equation
+     * @throws com.jouwee.commons.math.ParsingException
      */
-    public Equation parse(String toParse) {
+    public Equation parse(String toParse) throws ParsingException {
         if (toParse == null) {
             return null;
         }

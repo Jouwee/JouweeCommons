@@ -1,9 +1,11 @@
 package com.jouwee.commons.application;
 
 import com.jouwee.commons.mvc.Model;
+import java.io.InputStream;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -25,6 +27,10 @@ public class Application<T extends Model> extends javafx.application.Application
     private BorderPane mainPanel;
     /** Menu bar */
     private MenuBar menuBar;
+    /** Stage */
+    private Stage stage;
+    /** Image */
+    private Image image;
 
     /**
      * Creates a new application
@@ -40,12 +46,14 @@ public class Application<T extends Model> extends javafx.application.Application
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Hello World!");
+        stage = primaryStage;
+        stage.setTitle("Hello World!");
         BorderPane root = new BorderPane();
         root.setCenter(getMainPanel());
-        primaryStage.setScene(buildScene(root));
-        primaryStage.setMaximized(true);
-        primaryStage.show();
+        stage.setScene(buildScene(root));
+        stage.setMaximized(true);
+        stage.getIcons().add(image);
+        stage.show();
     }
 
     /**
@@ -138,6 +146,18 @@ public class Application<T extends Model> extends javafx.application.Application
      */
     public MenuBar getMenuBar() {
         return menuBar;
+    }
+    
+    /**
+     * Sets the application icon
+     * 
+     * @param icon 
+     */
+    public void setIcon(InputStream icon) {
+        image = new Image(icon);
+        if (stage != null) {
+            stage.getIcons().add(image);
+        }
     }
 
 }

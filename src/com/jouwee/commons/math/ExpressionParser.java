@@ -17,13 +17,18 @@ public class ExpressionParser {
      * 
      * @param toParse
      * @return Expression
+     * @throws com.jouwee.commons.math.ParsingException
      */
-    public Expression parse(String toParse) {
+    public Expression parse(String toParse) throws ParsingException {
         if (toParse == null) {
             return null;
         }
-        String[] tokens = tokenize(toParse);
-        return new Expression(parse(tokens, 0));
+        try {
+            String[] tokens = tokenize(toParse);
+            return new Expression(parse(tokens, 0));
+        } catch (Exception e) {
+            throw new ParsingException(e);
+        }
     }
 
     /**

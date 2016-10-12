@@ -25,7 +25,7 @@ public class ExpressionParserTest {
      * Test the parsing of a null Expression
      */
     @Test
-    public void testNullExpression() {
+    public void testNullExpression() throws ParsingException {
         assertNull(parser.parse(null));
     }
     
@@ -33,7 +33,7 @@ public class ExpressionParserTest {
      * Test the parsing of absolute value nodes
      */
     @Test
-    public void testAbsoluteValueNodes() {
+    public void testAbsoluteValueNodes() throws ParsingException {
         assertEquals(new Expression(new AbsoluteValueNode(1)), parser.parse("1"));
         assertEquals(new Expression(new AbsoluteValueNode(8)), parser.parse("8"));
         assertEquals(new Expression(new AbsoluteValueNode(10)), parser.parse("10"));
@@ -48,7 +48,7 @@ public class ExpressionParserTest {
      * Test the parsing of variable nodes
      */
     @Test
-    public void testVariableNodes() {
+    public void testVariableNodes() throws ParsingException {
         assertEquals(new Expression(new VariableNode("x")), parser.parse("x"));
         assertEquals(new Expression(new VariableNode("a")), parser.parse("a"));
         assertEquals(new Expression(new VariableNode("y")), parser.parse("y"));
@@ -59,7 +59,7 @@ public class ExpressionParserTest {
      * Test simple addition
      */
     @Test
-    public void testAddition() {
+    public void testAddition() throws ParsingException {
         Expression expected;
         //
         expected = new Expression(new SumNode(new AbsoluteValueNode(1), new AbsoluteValueNode(1)));
@@ -70,7 +70,7 @@ public class ExpressionParserTest {
      * Test simple Difference
      */
     @Test
-    public void testDifference() {
+    public void testDifference() throws ParsingException {
         Expression expected;
         //
         expected = new Expression(new DifferenceNode(new AbsoluteValueNode(1), new AbsoluteValueNode(1)));
@@ -81,11 +81,22 @@ public class ExpressionParserTest {
      * Test simple Difference
      */
     @Test
-    public void testMultiplication() {
+    public void testMultiplication() throws ParsingException {
         Expression expected;
         //
         expected = new Expression(new MultiplicationNode(new AbsoluteValueNode(1), new AbsoluteValueNode(1)));
         assertEquals(expected, parser.parse("1 * 1"));
+    }
+    
+    /**
+     * Test invalid expressions
+     */
+    @Test
+    public void testInvalidExpressions() {
+        try {
+            parser.parse("a -");
+            fail();
+        } catch(ParsingException e) {}
     }
     
 }
