@@ -30,29 +30,29 @@ public class EquationSolverTest {
     }
     
     @Test
-    public void testAbsoluteEquations() {
+    public void testAbsoluteEquations() throws ParsingException  {
         assertEquals(1d, solver.solve(parser.parse("x=1"), "x"), DELTA);
         assertEquals(10d, solver.solve(parser.parse("x=10"), "x"), DELTA);
     }
     
     @Test
-    public void testSimpleAddition() {
+    public void testSimpleAddition() throws ParsingException  {
         assertEquals(6d, solver.solve(parser.parse("x=1 + 5"), "x"), DELTA);
     }
     
     @Test
-    public void testSimpleSubtraction() {
+    public void testSimpleSubtraction() throws ParsingException  {
         assertEquals(4d, solver.solve(parser.parse("x=6 - 2"), "x"), DELTA);
     }
     
     @Test
-    public void testSimpleAdditionWithVariables() {
+    public void testSimpleAdditionWithVariables() throws ParsingException  {
         solver.putVariable("y", 5);
         assertEquals(10d, solver.solve(parser.parse("x=y + 5"), "x"), DELTA);
     }
     
     @Test
-    public void testSimpleUnisolated() {
+    public void testSimpleUnisolated() throws ParsingException  {
         solver.putVariable("y", 3);
         assertEquals(7d, solver.solve(parser.parse("x + y=10"), "x"), DELTA);
     }

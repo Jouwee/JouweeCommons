@@ -30,13 +30,13 @@ public class ExpressionSolverTest {
     }
     
     @Test
-    public void testAbsoluteExpressions() {
+    public void testAbsoluteExpressions() throws ParsingException  {
         assertEquals(1, solver.solve(parser.parse("1")), DELTA);
         assertEquals(10, solver.solve(parser.parse("10")), DELTA);
     }
     
     @Test
-    public void testAdditions() {
+    public void testAdditions() throws ParsingException  {
         assertEquals(2, solver.solve(parser.parse("1 + 1")), DELTA);
         assertEquals(15, solver.solve(parser.parse("10 + 5")), DELTA);
     }

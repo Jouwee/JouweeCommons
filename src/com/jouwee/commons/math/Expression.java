@@ -14,6 +14,13 @@ public class Expression {
 
     /**
      * Expression
+     */
+    public Expression() {
+        this(new AbsoluteValueNode(0));
+    }
+
+    /**
+     * Expression
      * 
      * @param node
      */

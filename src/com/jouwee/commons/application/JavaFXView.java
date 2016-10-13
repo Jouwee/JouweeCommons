@@ -40,7 +40,9 @@ public abstract class JavaFXView<M extends Model> extends BorderPane {
      * @param model 
      */
     public void setModel(M model) {
+        M oldModel = this.model;
         this.model = model;
+        fireEvent(new ModelEvent(oldModel, model));
     }
     
 }

@@ -1,5 +1,6 @@
 package com.jouwee.commons.javafx.control;
 
+import com.jouwee.commons.javafx.ValueEvent;
 import com.jouwee.commons.math.Expression;
 import com.jouwee.commons.math.ExpressionParser;
 import java.util.regex.Pattern;
@@ -18,7 +19,7 @@ public class ExpressionField extends TextField {
     private final ExpressionParser parser;
     /** Expression value */
     private Expression value;
-
+       
     /**
      * Creates a new expression field
      */
@@ -32,8 +33,9 @@ public class ExpressionField extends TextField {
      * @param value
      */
     public ExpressionField(Expression value) {
-        this.value = value;
+        super();
         this.parser = new ExpressionParser();
+        setValue(value);
         initGui();
     }
 
@@ -68,7 +70,9 @@ public class ExpressionField extends TextField {
      */
     private void parse() {
         try {
+            Expression oldValue = value;
             value = parser.parse(getText());
+            fireEvent(new ValueEvent(oldValue, value));
             getStyleClass().remove("invalid");
         } catch (Exception e) {
             if (!getStyleClass().contains("invalid")) {
@@ -98,8 +102,11 @@ public class ExpressionField extends TextField {
      *
      * @param value
      */
-    public void setValue(Expression value) {
+    public final void setValue(Expression value) {
+        Expression oldValue = this.value;
         this.value = value;
+        fireEvent(new ValueEvent(oldValue, value));
+        setText(value.toString());
     }
 
 }

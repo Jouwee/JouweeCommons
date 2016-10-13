@@ -26,7 +26,7 @@ public class EquationParserTest {
      * Test the parsing of simple equations
      */
     @Test
-    public void testNullEquation() {
+    public void testNullEquation() throws ParsingException {
         assertNull(parser.parse(null));
     }
     
@@ -34,7 +34,7 @@ public class EquationParserTest {
      * Test the parsing of simple equations
      */
     @Test
-    public void testSimpleEquations() {
+    public void testSimpleEquations() throws ParsingException  {
         Equation equation;
         //
         equation = parser.parse("1 + 1=2 + 2");
@@ -47,7 +47,7 @@ public class EquationParserTest {
      * Test the parsing of equations ignoring whitespaces
      */
     @Test
-    public void testWhitespaces() {
+    public void testWhitespaces() throws ParsingException  {
         Equation equation;
         //
         equation = parser.parse("x=1 + 1");
@@ -65,7 +65,7 @@ public class EquationParserTest {
      * Test the parsing of inequalities
      */
     @Test
-    public void testInequalities() {
+    public void testInequalities() throws ParsingException  {
         Equation equation;
         //
         equation = parser.parse("x>=1");

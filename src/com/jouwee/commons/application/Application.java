@@ -1,7 +1,12 @@
 package com.jouwee.commons.application;
 
 import com.jouwee.commons.mvc.Model;
+import com.sun.javafx.event.EventDispatchChainImpl;
+import com.sun.javafx.scene.NodeEventDispatcher;
 import java.io.InputStream;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
@@ -15,10 +20,12 @@ import javafx.stage.Stage;
  * @author Nícolas Pohren
  * @param <T> Model type of the application
  */
-public class Application<T extends Model> extends javafx.application.Application {
-
+public abstract class Application<T extends Model> extends javafx.application.Application {
+    
     /** Action repository */
     private final ActionRepository actionRepository;
+    /** Event dispatcher */
+    private NodeEventDispatcher internalEventDispatcher;
     /** Model */
     private T model;
     /** Body */
@@ -54,7 +61,14 @@ public class Application<T extends Model> extends javafx.application.Application
         stage.setMaximized(true);
         stage.getIcons().add(image);
         stage.show();
+        this.internalEventDispatcher = new NodeEventDispatcher(stage);
+        onStart();
     }
+    
+    /**
+     * Starts the application
+     */
+    public abstract void onStart();
 
     /**
      * Builds the scene
@@ -68,6 +82,20 @@ public class Application<T extends Model> extends javafx.application.Application
         scene.getStylesheets().clear();
         scene.getStylesheets().add(css);
         return scene;
+    }
+    
+    /**
+     * Registers an event handler to this node. The handler is called when the
+     * node receives an {@code Event} of the specified type during the bubbling
+     * phase of event delivery.
+     *
+     * @param <T> the specific event class of the handler
+     * @param eventType the type of the events to receive by the handler
+     * @param eventHandler the handler to register
+     * @throws NullPointerException if the event type or handler is null
+     */
+    public final <T extends Event> void addEventHandler(final EventType<T> eventType, final EventHandler<? super T> eventHandler) {
+        internalEventDispatcher.getEventHandlerManager().addEventHandler(eventType, eventHandler);
     }
 
     /**
@@ -127,7 +155,9 @@ public class Application<T extends Model> extends javafx.application.Application
      * @param model
      */
     public void setModel(T model) {
+        T oldModel = this.model;
         this.model = model;
+        internalEventDispatcher.dispatchEvent(new ModelEvent<>(oldModel, model), new EventDispatchChainImpl());
     }
 
     /**

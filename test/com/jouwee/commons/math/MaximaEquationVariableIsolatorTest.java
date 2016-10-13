@@ -27,19 +27,19 @@ public class MaximaEquationVariableIsolatorTest {
     }
     
     @Test
-    public void testAlreadyIsolatedEquations() {
+    public void testAlreadyIsolatedEquations() throws ParsingException  {
         assertEquals(parser.parse("x=1"), isolator.isolate(parser.parse("x=1"), "x"));
         assertEquals(parser.parse("x=a + 1"), isolator.isolate(parser.parse("x=a + 1"), "x"));
     }
     
     @Test
-    public void testSimpleInversion() {
+    public void testSimpleInversion() throws ParsingException  {
         assertEquals(parser.parse("x=1"), isolator.isolate(parser.parse("1=x"), "x"));
         assertEquals(parser.parse("x=y"), isolator.isolate(parser.parse("y=x"), "x"));
     }
     
     @Test
-    public void testSimpleAddition() {
+    public void testSimpleAddition() throws ParsingException  {
         assertEquals(parser.parse("x=1 - y"), isolator.isolate(parser.parse("x + y=1"), "x"));
     }
     
