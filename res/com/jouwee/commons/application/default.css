@@ -23,7 +23,3 @@
 .invalid {
     -fx-control-inner-background: #FFCCCC;
 }
-
-.valid {
-    -fx-control-inner-background: white;
-}
