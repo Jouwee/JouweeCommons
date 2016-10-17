@@ -47,7 +47,7 @@ public class AbsoluteValueNode extends ValueNode {
             return false;
         }
         final AbsoluteValueNode other = (AbsoluteValueNode) obj;
-        if (Double.doubleToLongBits(this.value) != Double.doubleToLongBits(other.value)) {
+        if (this.value != other.value) {
             return false;
         }
         return true;
@@ -58,7 +58,7 @@ public class AbsoluteValueNode extends ValueNode {
         if ((value == Math.floor(value)) && !Double.isInfinite(value)) {
             return String.valueOf((long)value);
         } else {
-            return String.valueOf((long)value);
+            return String.valueOf((double)value).replace(".", ",");
         }
     }
 

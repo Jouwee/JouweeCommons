@@ -44,6 +44,7 @@ public class ExpressionTest {
         assertEquals(2, parser.parse("3 * y + 2 * x").getVariableCoeficient("x"), DELTA);
         assertEquals(2, parser.parse("2 * x + 1").getVariableCoeficient("x"), DELTA);
         assertEquals(2, parser.parse("2 * x + 3 * y").getVariableCoeficient("x"), DELTA);
+        assertEquals(0.2, parser.parse("0.20 * a + 0.30 * b").getVariableCoeficient("a"), DELTA);
     }
     
 }

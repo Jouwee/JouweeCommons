@@ -21,6 +21,7 @@ public class AbsoluteValueNodeTest {
     @Test
     public void testToComputerString() {
         assertEquals("1", new AbsoluteValueNode(1).toComputerString());
+        assertEquals("0,1", new AbsoluteValueNode(0.1).toComputerString());
     }
     
 }

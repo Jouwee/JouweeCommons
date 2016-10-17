@@ -58,7 +58,15 @@ public class Equation extends ExpressionNode {
     
     @Override
     public String toComputerString() {
-        return getLeftFunction().toComputerString() + "=" + getRightFunction().toComputerString();
+        String sLeft = "<null>";
+        String sRight = "<null>";
+        if (getLeftFunction() != null) {
+            sLeft = getLeftFunction().toComputerString();
+        }
+        if (getRightFunction() != null) {
+            sRight = getRightFunction().toComputerString();
+        }
+        return sLeft + "=" + sRight;
     }
 
     @Override

@@ -10,7 +10,13 @@ import java.util.regex.Pattern;
 public class ExpressionParser {
 
     /** Numeric pattern */
-    private static final Pattern NUMERIC = Pattern.compile("\\-?\\d+");
+    private static final Pattern NUMERIC = Pattern.compile("\\-?\\d*?(,|\\.)?\\d+");
+    /** End of file */
+    private static final String EOF = "\uffff";
+    /** Tokens */
+    private String[] tokens;
+    /** Current token */
+    private int currentToken;
     
     /**
      * Parses a Expression
@@ -24,8 +30,9 @@ public class ExpressionParser {
             return null;
         }
         try {
-            String[] tokens = tokenize(toParse);
-            return new Expression(parse(tokens, 0));
+            tokens = tokenize(toParse);
+            currentToken = 0;
+            return new Expression(parseExpression());
         } catch (Exception e) {
             throw new ParsingException(e);
         }
@@ -42,54 +49,115 @@ public class ExpressionParser {
     }
 
     /**
-     * Parses tokens
+     * Parses an expression
      * 
-     * @param tokens
-     * @param i
      * @return Expression
      */
-    private ExpressionNode parse(String[] tokens, int i) {
-        ValueNode leftNode = parseValue(tokens, i);
-        if (tokens.length - 1 > i) {
-            ExpressionNode rightNode = parse(tokens, i + 2);
-            return parseOperation(tokens, i + 1, leftNode, rightNode);
+    private ExpressionNode parseExpression() throws ParsingException {
+        if (isTokenValue()) {
+            ExpressionNode leftNode = parseValueOrPrecedingOperation();
+            nextToken();
+            if (isToken(EOF)) {
+                return leftNode;
+            }
+            if (isTokenOperation()) {
+                if (isToken("+")) {
+                    nextToken();
+                    return new SumNode(leftNode, parseExpression());
+                }
+                if (isToken("-")) {
+                    nextToken();
+                    return new DifferenceNode(leftNode, parseExpression());
+                }
+            }
+        }
+        throw new ParsingException("Value expected");
+    }
+
+    /**
+     * Parses an value of a preceeding operation
+     */
+    private ExpressionNode parseValueOrPrecedingOperation() {
+        ValueNode leftNode = parseValue();
+        if (getToken(1).equals("*")) {
+            nextToken();
+            nextToken();
+            return new MultiplicationNode(leftNode, parseValueOrPrecedingOperation());
         }
         return leftNode;
     }
-
+    
     /**
      * Parse value node
      * 
-     * @param tokens
-     * @param i
      * @return ValueNode
      * @throws NumberFormatException 
      */
-    private ValueNode parseValue(String[] tokens, int i) throws NumberFormatException {
-        if (NUMERIC.matcher(tokens[i]).matches()) {
-            return new AbsoluteValueNode(Integer.parseInt(tokens[i]));
+    private ValueNode parseValue() throws NumberFormatException {
+        if (NUMERIC.matcher(getToken()).matches()) {
+            return new AbsoluteValueNode(Double.parseDouble(getToken().replace(",", ".")));
         } else {
-            return new VariableNode(tokens[i]);
+            return new VariableNode(getToken());
         }
     }
 
     /**
-     * Parse an operation
+     * Go to the next token
      * 
-     * @param tokens
-     * @param i
-     * @param leftNode
-     * @param rightNode
-     * @return ExpressionNode
+     * @return String
      */
-    private ExpressionNode parseOperation(String[] tokens, int i, ValueNode leftNode, ExpressionNode rightNode) {
-        if (tokens[i].equals("+")) {
-            return new SumNode(leftNode, rightNode);
-        } else if (tokens[i].equals("-")) {
-            return new DifferenceNode(leftNode, rightNode);
-        } else {
-            return new MultiplicationNode(leftNode, rightNode);
+    private String nextToken() {
+        currentToken++;
+        return getToken();
+    }
+    
+    /**
+     * Checks if it mathces with the current token
+     * 
+     * @param token
+     * @return boolean
+     */
+    private boolean isToken(String token) {
+        return getToken().equals(token);
+    }
+    
+    /**
+     * Returns if the token is a value
+     * 
+     * @return boolean
+     */
+    private boolean isTokenValue() {
+        return !isTokenOperation() && !isToken(EOF);
+    }
+    
+    /**
+     * Returns if the token is a operation
+     * 
+     * @return boolean
+     */
+    private boolean isTokenOperation() {
+        return isToken("+") || isToken("-") || isToken("*");
+    }
+    
+    /**
+     * Returns the token
+     * 
+     * @return String
+     */
+    private String getToken() {
+        return getToken(0);
+    }
+    
+    /**
+     * Returns the token
+     * 
+     * @return String
+     */
+    private String getToken(int lookahead) {
+        if (currentToken + lookahead >= tokens.length) {
+            return EOF;
         }
+        return tokens[currentToken + lookahead];
     }
 
     
