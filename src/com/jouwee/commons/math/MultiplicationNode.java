@@ -11,7 +11,7 @@ import java.util.Objects;
 public class MultiplicationNode extends ExpressionNode {
 
     /** Left operand */
-    private final ValueNode leftOperant;
+    private final ExpressionNode leftOperant;
     /** Right operand */
     private final ExpressionNode rightOperant;
 
@@ -21,7 +21,7 @@ public class MultiplicationNode extends ExpressionNode {
      * @param leftOperant
      * @param rightOperant 
      */
-    public MultiplicationNode(ValueNode leftOperant, ExpressionNode rightOperant) {
+    public MultiplicationNode(ExpressionNode leftOperant, ExpressionNode rightOperant) {
         this.leftOperant = leftOperant;
         this.rightOperant = rightOperant;
     }
@@ -31,7 +31,7 @@ public class MultiplicationNode extends ExpressionNode {
      * 
      * @return ValueNode
      */
-    public ValueNode getLeftOperant() {
+    public ExpressionNode getLeftOperant() {
         return leftOperant;
     }
 

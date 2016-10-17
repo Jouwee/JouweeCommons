@@ -51,7 +51,7 @@ public class ExpressionParser {
     private ExpressionNode parse(String[] tokens, int i) {
         ValueNode leftNode = parseValue(tokens, i);
         if (tokens.length - 1 > i) {
-            ValueNode rightNode = parseValue(tokens, i + 2);
+            ExpressionNode rightNode = parse(tokens, i + 2);
             return parseOperation(tokens, i + 1, leftNode, rightNode);
         }
         return leftNode;
@@ -82,7 +82,7 @@ public class ExpressionParser {
      * @param rightNode
      * @return ExpressionNode
      */
-    private ExpressionNode parseOperation(String[] tokens, int i, ValueNode leftNode, ValueNode rightNode) {
+    private ExpressionNode parseOperation(String[] tokens, int i, ValueNode leftNode, ExpressionNode rightNode) {
         if (tokens[i].equals("+")) {
             return new SumNode(leftNode, rightNode);
         } else if (tokens[i].equals("-")) {

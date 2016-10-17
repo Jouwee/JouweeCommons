@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  * Event dispatcher
@@ -134,7 +133,7 @@ public class EventDispatcher implements GenericEventDispatcher {
     private class ListenerList {
         
         /** Listener list */
-        private final List<WeakReference<ListenerBean>> list;
+        private final List<ListenerBean> list;
 
         /**
          * Listener list
@@ -150,7 +149,7 @@ public class EventDispatcher implements GenericEventDispatcher {
          * @param listener 
          */
         public void add(Model model, EventListener listener) {
-            list.add(new WeakReference<>(new ListenerBean(model, listener)));
+            list.add(new ListenerBean(model, listener));
         }
         
         /**
@@ -161,14 +160,9 @@ public class EventDispatcher implements GenericEventDispatcher {
          */
         public List<EventListener> get(Class<? extends EventListener> type) {
             List<EventListener> ret = new ArrayList<>();
-            for (WeakReference<ListenerBean> reference : new ArrayList<>(list)) {
-                ListenerBean bean = reference.get();
-                if (bean == null) {
-                    list.remove(reference);
-                } else {
-                    if (type.isAssignableFrom(bean.listener.getClass())) {
-                        ret.add(bean.listener);
-                    }
+            for (ListenerBean bean : new ArrayList<>(list)) {
+                if (type.isAssignableFrom(bean.listener.getClass())) {
+                    ret.add(bean.listener);
                 }
             }
             return ret;

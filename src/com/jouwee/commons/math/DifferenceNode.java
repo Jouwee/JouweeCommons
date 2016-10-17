@@ -9,7 +9,7 @@ import java.util.Objects;
 public class DifferenceNode extends ExpressionNode {
     
     /** Left operand */
-    private final ValueNode leftOperant;
+    private final ExpressionNode leftOperant;
     /** Right operand */
     private final ExpressionNode rightOperant;
 
@@ -19,7 +19,7 @@ public class DifferenceNode extends ExpressionNode {
      * @param leftOperant
      * @param rightOperant 
      */
-    public DifferenceNode(ValueNode leftOperant, ExpressionNode rightOperant) {
+    public DifferenceNode(ExpressionNode leftOperant, ExpressionNode rightOperant) {
         this.leftOperant = leftOperant;
         this.rightOperant = rightOperant;
     }
@@ -27,9 +27,9 @@ public class DifferenceNode extends ExpressionNode {
     /**
      * Returns the left operand
      * 
-     * @return ValueNode
+     * @return ExpressionNode
      */
-    public ValueNode getLeftOperant() {
+    public ExpressionNode getLeftOperant() {
         return leftOperant;
     }
 

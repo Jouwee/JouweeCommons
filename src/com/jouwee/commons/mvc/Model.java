@@ -37,4 +37,24 @@ public interface Model {
         EventDispatcher.get().fireEvent(this, event);
     }
     
+    /**
+     * Adds an event listener to the model to every of its children
+     * 
+     * @param <T>
+     * @param listener 
+     */
+    public default <T extends EventObject> void addChildEventListener(EventListener<T> listener) {
+        EventMulticaster.get(this).addEventListener(listener);
+    }
+        
+    /**
+     * Removes an event listener to the model and to every of its children
+     * 
+     * @param <T>
+     * @param listener 
+     */
+    public default <T extends EventObject> void removeChildEventListener(EventListener<T> listener) {
+        EventMulticaster.get(this).removeEventListener(listener);
+    }
+    
 }

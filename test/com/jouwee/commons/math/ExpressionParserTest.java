@@ -89,6 +89,20 @@ public class ExpressionParserTest {
     }
     
     /**
+     * Test operation chain
+     */
+    @Test
+    public void testOperationChain() throws ParsingException {
+        Expression expected;
+        //
+        expected = new Expression(new SumNode(new AbsoluteValueNode(1), new SumNode(new AbsoluteValueNode(2), new SumNode(new AbsoluteValueNode(3), new VariableNode("a")))));
+        assertEquals(expected, parser.parse("1 + 2 + 3 + a"));
+        //
+//        expected = new Expression(new SumNode(new MultiplicationNode(new VariableNode("a"), new AbsoluteValueNode(2)), new MultiplicationNode(new VariableNode("a"), new AbsoluteValueNode(2)));
+//        assertEquals(expected, parser.parse("a * 2 + x * 3"));
+    }
+    
+    /**
      * Test invalid expressions
      */
     @Test

@@ -17,5 +17,7 @@ public interface JFXClass {
     public static final String H4 = "h4";
     /** Header level 5 */
     public static final String H5 = "h5";
+    /** Paragraph */
+    public static final String P = "p";
     
 }

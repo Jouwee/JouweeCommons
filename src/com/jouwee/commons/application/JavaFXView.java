@@ -1,6 +1,7 @@
 
 package com.jouwee.commons.application;
 
+import com.jouwee.commons.javafx.JFXClass;
 import com.jouwee.commons.mvc.Model;
 import javafx.scene.layout.BorderPane;
 
@@ -10,7 +11,7 @@ import javafx.scene.layout.BorderPane;
  * @author Nícolas Pohren
  * @param <M> View model type
  */
-public abstract class JavaFXView<M extends Model> extends BorderPane {
+public abstract class JavaFXView<M extends Model> extends BorderPane implements JFXClass {
 
     /** Model */
     private M model;

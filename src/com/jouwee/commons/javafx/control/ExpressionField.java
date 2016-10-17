@@ -106,7 +106,11 @@ public class ExpressionField extends TextField {
         Expression oldValue = this.value;
         this.value = value;
         fireEvent(new ValueEvent(oldValue, value));
-        setText(value.toString());
+        if (value == null) {
+            setText("");
+        } else {
+            setText(value.toString());
+        }
     }
 
 }
