@@ -19,6 +19,7 @@
     /*-fx-font-weight: bold;*/
     -fx-padding: 15px 0 0 0;
     -fx-text-fill: linear-gradient(to right, #db2431, #814190);
+    /*-fx-text-fill: linear-gradient(to right, green, red);*/
 }
 
 .h3 {
@@ -31,6 +32,18 @@
 
 .p {
     -fx-padding: 5px 0 0 30px;
+}
+
+.table {
+    -fx-hgap: 10px;
+    -fx-vgap: 5px;
+}
+
+.table .header {
+    -fx-font-family: Catamaran, Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
 }
 
 /* Control states */

@@ -19,5 +19,9 @@ public interface JFXClass {
     public static final String H5 = "h5";
     /** Paragraph */
     public static final String P = "p";
+    /** Table */
+    public static final String TABLE = "table";
+    /** Header */
+    public static final String HEADER = "header";
     
 }

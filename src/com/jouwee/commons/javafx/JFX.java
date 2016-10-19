@@ -13,6 +13,20 @@ public class JFX {
     /**
      * Adds style classes on the node
      * 
+     * @param nodes
+     * @param classes
+     * @return Node itself
+     */
+    public static final Node[] styleClass(Node[] nodes, String... classes) {
+        for (Node node : nodes) {
+            styleClass(node, classes);
+        }
+        return nodes;
+    }
+
+    /**
+     * Adds style classes on the node
+     * 
      * @param node
      * @param classes
      * @return Node itself
