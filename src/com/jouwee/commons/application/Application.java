@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -53,6 +54,7 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Font.loadFont(Application.class.getResource("glyphicons-halflings-regular.ttf").toExternalForm(), 10);
         stage = primaryStage;
         stage.setTitle("Hello World!");
         BorderPane root = new BorderPane();

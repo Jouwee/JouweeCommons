@@ -1,7 +1,7 @@
 /*https://blackrockdigital.github.io/startbootstrap-new-age/*/
 /*    // db2431
     // 814190
- #666666
+ #555
 
 */
 
@@ -27,7 +27,7 @@
     -fx-font-size: 13pt;
     -fx-font-weight: bold;
     -fx-padding: 10px 0 0 0;
-    -fx-text-fill: #666666;
+    -fx-text-fill: #555;
 }
 
 .p {
@@ -41,9 +41,22 @@
 
 .table .header {
     -fx-font-family: Catamaran, Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 9pt;
     -fx-font-weight: bold;
-    -fx-text-fill: #666666;
+    -fx-text-fill: #814190;
+}
+
+/* Default styles */
+
+.b {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+/* Glyphicons */
+
+.glyph {
+    -fx-font-family: "GLYPHICONS Halflings";
 }
 
 /* Control states */
