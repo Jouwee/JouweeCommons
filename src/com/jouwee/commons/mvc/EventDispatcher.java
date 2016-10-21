@@ -1,6 +1,5 @@
 package com.jouwee.commons.mvc;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
