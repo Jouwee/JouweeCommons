@@ -46,6 +46,19 @@
     -fx-text-fill: #814190;
 }
 
+/* Control classes */
+
+.panel {
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-border-color: #CCCCCC;
+    -fx-border-insets: 2px 2px 2px 2px;
+    -fx-border-radius: 5px;
+}
+
+.panel .scroll-pane {
+    -fx-background-color: transparent;
+}
+
 /* Default styles */
 
 .b {

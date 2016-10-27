@@ -121,7 +121,7 @@ public class EventDispatcher implements GenericEventDispatcher {
          * @return Integer
          */
         public Integer key(Model model) {
-            return model.hashCode();
+            return System.identityHashCode(model);
         }
         
     }

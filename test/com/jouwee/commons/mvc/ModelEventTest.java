@@ -1,6 +1,7 @@
 package com.jouwee.commons.mvc;
 
 import com.jouwee.commons.mvc.mocks.ModelA;
+import com.jouwee.commons.mvc.mocks.ModelWithHash;
 import com.jouwee.commons.mvc.mocks.RootModel;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,6 +34,16 @@ public class ModelEventTest {
         model.addEventListener(listener);
         model.setStringProperty("New string");
         listener.assertNext("stringProperty", null, "New string");
+    }
+    
+    @Test
+    public void testSimpleEventWithHash() {
+        ModelWithHash model = new ModelWithHash();
+        model.addEventListener(listener);
+        model.setStringProperty("New string");
+        model.setStringProperty("Another one");
+        listener.assertNext("stringProperty", null, "New string");
+        listener.assertNext("stringProperty", "New string", "Another one");
     }
     
     @Test

@@ -1,0 +1,25 @@
+.table-pane {
+    -fx-background-color: white;
+    -fx-border-color: #999;
+    -fx-hgap: 0px;
+    -fx-vgap: 0px;
+    /*-fx-padding: 0px -1px -1px 0px;*/
+    -fx-border-insets: 0px -1px -1px 0px;
+}
+
+.table-pane .cell {
+    -fx-padding: 5px;
+    -fx-border-color: #AAA #CCC #AAA #CCC;
+    -fx-border-width: 0px 1px 1px 0px;
+}
+
+.table-pane .row-even {
+    -fx-background-color: #F6F6F6;
+}
+
+.table-pane .header .label {
+    -fx-font-family: Catamaran, Helvetica, Arial, sans-serif;
+    -fx-font-size: 9pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #814190;
+}
