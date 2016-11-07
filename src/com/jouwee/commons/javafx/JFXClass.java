@@ -29,5 +29,7 @@ public interface JFXClass {
     public static final String GLYPH = "glyph";
     /** Panel */
     public static final String PANEL = "panel";
+    /** Clickable */
+    public static final String CLICKABLE = "clickable";
     
 }

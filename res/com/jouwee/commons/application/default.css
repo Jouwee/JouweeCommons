@@ -77,3 +77,7 @@
 .invalid {
     -fx-control-inner-background: #FFCCCC;
 }
+
+.clickable {
+    -fx-cursor: hand;
+}

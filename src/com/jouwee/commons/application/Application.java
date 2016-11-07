@@ -4,14 +4,17 @@ import com.jouwee.commons.mvc.Model;
 import com.sun.javafx.event.EventDispatchChainImpl;
 import com.sun.javafx.scene.NodeEventDispatcher;
 import java.io.InputStream;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -31,6 +34,8 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
     private T model;
     /** Body */
     private JavaFXView body;
+    /** Stack panel */
+    private StackPane stackPanel;
     /** Main panel */
     private BorderPane mainPanel;
     /** Menu bar */
@@ -50,6 +55,8 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
         this.model = model;
         this.actionRepository = new ActionRepository();
         new ApplicationMenuBuilder(this);
+        stackPanel = new StackPane();
+        stackPanel.getChildren().add(getMainPanel());
     }
 
     @Override
@@ -57,9 +64,7 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
         Font.loadFont(Application.class.getResource("glyphicons-halflings-regular.ttf").toExternalForm(), 10);
         stage = primaryStage;
         stage.setTitle("Hello World!");
-        BorderPane root = new BorderPane();
-        root.setCenter(getMainPanel());
-        stage.setScene(buildScene(root));
+        stage.setScene(buildScene(stackPanel));
         stage.setMaximized(true);
         stage.getIcons().add(image);
         stage.show();
@@ -78,7 +83,7 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
      * @param root
      * @return Scene
      */
-    private static Scene buildScene(BorderPane root) {
+    private static Scene buildScene(Parent root) {
         Scene scene = new Scene(root, 300, 250);
         String css = Application.class.getResource("default.css").toExternalForm();
         scene.getStylesheets().clear();
@@ -121,6 +126,17 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
     private Node buildMenuBar() {
         menuBar = new MenuBar();
         return menuBar;
+    }
+    
+    /**
+     * Adds a new layer (overlay) over the application window
+     * 
+     * @param node 
+     */
+    public void addLayer(Node node) {
+        Platform.runLater(() -> {
+            stackPanel.getChildren().add(node);
+        });
     }
 
     /**
