@@ -44,6 +44,8 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
     private Stage stage;
     /** Image */
     private Image image;
+    /** Title */
+    private String title;
 
     /**
      * Creates a new application
@@ -63,7 +65,7 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
     public void start(Stage primaryStage) throws Exception {
         Font.loadFont(Application.class.getResource("glyphicons-halflings-regular.ttf").toExternalForm(), 10);
         stage = primaryStage;
-        stage.setTitle("Hello World!");
+        stage.setTitle(title);
         stage.setScene(buildScene(stackPanel));
         stage.setMaximized(true);
         stage.getIcons().add(image);
@@ -205,6 +207,18 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
         image = new Image(icon);
         if (stage != null) {
             stage.getIcons().add(image);
+        }
+    }
+    
+    /**
+     * Define o título
+     * 
+     * @param title 
+     */
+    public void setTitle(String title) {
+        this.title = title;
+        if (stage != null) {
+            stage.setTitle(title);
         }
     }
 

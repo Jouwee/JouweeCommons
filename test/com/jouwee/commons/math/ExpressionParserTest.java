@@ -42,10 +42,6 @@ public class ExpressionParserTest {
         assertEquals(new Expression(new AbsoluteValueNode(8)), parser.parse("8"));
         assertEquals(new Expression(new AbsoluteValueNode(10)), parser.parse("10"));
         assertEquals(new Expression(new AbsoluteValueNode(20019)), parser.parse("20019"));
-        assertEquals(new Expression(new AbsoluteValueNode(-1)), parser.parse("-1"));
-        assertEquals(new Expression(new AbsoluteValueNode(-8)), parser.parse("-8"));
-        assertEquals(new Expression(new AbsoluteValueNode(-10)), parser.parse("-10"));
-        assertEquals(new Expression(new AbsoluteValueNode(-20019)), parser.parse("-20019"));
         assertEquals(new Expression(new AbsoluteValueNode(0.1)), parser.parse("0.1"));
         assertEquals(new Expression(new AbsoluteValueNode(0.1)), parser.parse("0,1"));
     }
@@ -116,6 +112,16 @@ public class ExpressionParserTest {
         //
         expected = new Expression(new SumNode(new MultiplicationNode(new VariableNode("a"), new AbsoluteValueNode(2)), new MultiplicationNode(new VariableNode("x"), new AbsoluteValueNode(3))));
         assertEquals(expected, parser.parse("a * 2 + x * 3"));
+    }
+    
+    /**
+     * Test ommiting space
+     * 
+     * @throws ParsingException 
+     */
+    @Test
+    public void testSpaceOmmiting() throws ParsingException {
+        assertEquals(parser.parse("1 + 1"), parser.parse("1+1"));
     }
     
     /**

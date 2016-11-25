@@ -1,5 +1,7 @@
 package com.jouwee.commons.math;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -45,7 +47,30 @@ public class ExpressionParser {
      * @return String[]
      */
     private String[] tokenize(String toParse) {
-        return toParse.split(" ");
+        List<String> tokens = new ArrayList<>();
+        StringBuilder lexem = new StringBuilder();
+        for (int i = 0; i < toParse.length(); i++) {
+            char ch = toParse.charAt(i);
+            char la = '\0';
+            if (i < toParse.length() - 1) {
+                la = toParse.charAt(i + 1);
+            }
+            if (ch == ' ') {
+                continue;
+            }
+            lexem.append(ch);
+            if ((ch >= '0' && ch <= '9') || ch == '.' || ch == ',') {
+                if ((la >= '0' && la <= '9') || la == '.' || la == ',') {
+                    continue;
+                }
+            }
+            tokens.add(lexem.toString());
+            lexem = new StringBuilder();
+        }
+        if (lexem.length() > 0) {
+            tokens.add(lexem.toString());
+        }
+        return tokens.toArray(new String[]{});
     }
 
     /**

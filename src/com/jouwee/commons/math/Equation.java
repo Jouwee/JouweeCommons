@@ -60,13 +60,25 @@ public class Equation extends ExpressionNode {
     public String toComputerString() {
         String sLeft = "<null>";
         String sRight = "<null>";
+        String sComparation = "<null>";
         if (getLeftFunction() != null) {
             sLeft = getLeftFunction().toComputerString();
         }
         if (getRightFunction() != null) {
             sRight = getRightFunction().toComputerString();
         }
-        return sLeft + "=" + sRight;
+        switch(getType()) {
+            case EQUALS_TO:
+                sComparation = "=";
+                break;
+            case GREATER_THAN_OR_EQUALS_TO:
+                sComparation = ">=";
+                break;
+            case LESSER_THAN_OR_EQUALS_TO:
+                sComparation = "<=";
+                break;
+        }
+        return sLeft + sComparation + sRight;
     }
 
     @Override

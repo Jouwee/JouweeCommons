@@ -89,6 +89,12 @@ public abstract class ExpressionNode {
                 return coeficient;
             }
         }
+        if (node instanceof VariableNode) {
+            VariableNode variable = (VariableNode) node;
+            if (variable.getVariable().equals(variableName)) {
+                return 1d;
+            }
+        }
         return null;
     }
     
