@@ -222,4 +222,13 @@ public abstract class Application<T extends Model> extends javafx.application.Ap
         }
     }
 
+    /**
+     * Returns the stage
+     * 
+     * @return Stage
+     */
+    public Stage getStage() {
+        return stage;
+    }
+    
 }
